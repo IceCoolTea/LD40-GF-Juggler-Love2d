@@ -1,80 +1,16 @@
 function love.load()
   -- Main LOVE settings
-  love.window.setMode(800, 600, {resizable=false, vsync=true, minwidth=400, minheight=300})
-  love.window.setTitle("Girlfriend Juggler by IceCoolTea")
-  love.graphics.setNewFont(12)
-  love.graphics.setColor(255,255,255)
-  love.graphics.setBackgroundColor(0,0,0)
+  require("conf")
 
-  --initialising images
-  player1 = love.graphics.newImage("img/player.png")
-  gf1 = love.graphics.newImage("img/gf1.png")
-  stage = love.graphics.newImage("img/stagev3.png")
-  mainMenuBackground = love.graphics.newImage("img/mainmenu.png")
-  limo = love.graphics.newImage("img/limo_ref.png")
-  phoneNote = love.graphics.newImage("img/phonenumber.png")
-  phone = love.graphics.newImage("img/phone.png")
+  --loading assets
+  require("loadAssets")
+
+  --initialise game objects
+  require("gameObjects")
+
+  --load game settings
+  require("gameSettings")
   
-  --initialising sounds and music
-  mainMenuMusic = love.audio.newSource("snd/mainmenu.wav")
-  jumpSound = love.audio.newSource("snd/jump.wav", "static")
-  
-  --some random value to set challenge, may come in handy
-  challengeSpeed = 100
-
-  --Placing crowd objects
-  crowdMember = 
-  {
-    {x = 1 , y = 1, r = 1 , g = 1 , b = 1}  
-  }
-  generateCrowd()
-
-
-  --initialise note
-  --state 1 sending
-  --state 2 collected
-  --state 3 missed
-  --state 4 out of game
-  note = {x = 840, state = 1, lane = 1} 
-  
-  --initialise phone
-  --state 1 waiting
-  --state 2 text
-  --state 3 reset
-  --state 4 timeout
-  textingPhone = {x = 840, state = 1, lane = 1, timeout = 1, progress = 1}
-
-  
-  --initialise gamestates
-  gameState = {MainMenu = true, Game = false, ScoreScreen = false}
-
-  --initialise player object
-  player = {name = "OBEY1", checkpoint = 1, sprite = "player1", gameScore = 0, x = 160, y = 80, phoneNumbers = 0}
-  
-  --initilaise car object
-  --state 1 coming
-  --state 2 waiting
-  --state 3 leaving
-  --state 4 not in game
-  limousine = {x = 600, y = 750, lane = 1, state = 4}
-
-  --game lanes init
-  lanes = {
-    {status = 0, phoneNumberChallenge = 0, textingChallenge = 0, girlfriendChallenge = 0, challengeTimer = 0},
-    {status = 0, phoneNumberChallenge = 0, textingChallenge = 0, girlfriendChallenge = 0, challengeTimer = 0},
-    {status = 0, phoneNumberChallenge = 0, textingChallenge = 0, girlfriendChallenge = 0, challengeTimer = 0},
-    {status = 0, phoneNumberChallenge = 0, textingChallenge = 0, girlfriendChallenge = 0, challengeTimer = 0}
-  }
-  --Lane statuses
-  --0 = empty = player.gameScore + 0
-  --1 = receiving phone number = player.gameScore + 100
-  --2 = texting = player.gameScore + 50
-  --3 = incoming gf = player.gameScore + 150
-
-  --volume adjustments
-  mainMenuMusic:setVolume(0.3)
-  jumpSound:setVolume(0.5)
-
   --testing lane states
   --lanes[love.math.random(1,4)].status = 2  
   lanes[3].status = 2 
@@ -185,10 +121,6 @@ function drawMainMenu()
   love.graphics.setColor(255, 255, 255)
   love.graphics.draw(mainMenuBackground, 0, 0)
   love.graphics.setColor(0, 200, 0)
-  --[[love.graphics.print("Girlfriend Juggler By IceCoolTea", 50, 20)
-  love.graphics.print("Story of game", 50, 100)
-  love.graphics.print("Press Enter to start", 250, 200)
-  love.graphics.print("Press Esc to exit", 250, 215)]]
   love.graphics.setColor(255, 255, 255)
 end
 
