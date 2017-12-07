@@ -1,4 +1,4 @@
 /bin/*
-/screenshot/
-/pre-assets/
+/screenshot/*
+/pre-assets/*
 /*.bat
